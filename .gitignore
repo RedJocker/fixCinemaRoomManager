@@ -1,6 +1,7 @@
 # Ignore build files
 /.gradle
 /build
+**/build
 
 # Uncash gradle wrapper
 /gradle/wrapper
