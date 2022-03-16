@@ -5,23 +5,28 @@ import android.widget.TextView
 import androidx.core.view.forEachIndexed
 import androidx.core.view.size
 import org.hyperskill.cinema.abstraction.AbstractUnitTest
+import org.hyperskill.cinema.abstraction.find
 import org.junit.Assert.assertEquals
-import org.junit.Assert.assertNotNull
-import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 
-// Version 21.09.2021
+// Version 03.2022
 @RunWith(RobolectricTestRunner::class)
 class Stage1UnitTest : AbstractUnitTest<MainActivity>(MainActivity::class.java) {
 
+    private val `cinema room places`: GridLayout by lazy {
+        activity.find("cinema_room_places")
+    }
+
+    private val `for screen text view`: TextView by lazy {
+        activity.find("cinema_room_screen_text")
+    }
+
     @Test
     fun `test should check screen view exists`() {
-        val message = "does view with id \"cinema_room_screen_text\" placed in activity?"
-
         activityController.`launch this activity and execute` {
-            assertNotNull(message, find<TextView>("cinema_room_screen_text"))
+            `for screen text view`
         }
     }
 
@@ -30,16 +35,14 @@ class Stage1UnitTest : AbstractUnitTest<MainActivity>(MainActivity::class.java) 
         val message = "does view with id \"cinema_room_screen_text\" contains a \"Screen\" text?"
 
         activityController.`launch this activity and execute` {
-            `screen text view`().`text should be`(errorMessage = message, "Screen")
+            `for screen text view`.`text should be`(errorMessage = message, "Screen")
         }
     }
 
     @Test
     fun `test should check places exists`() {
-        val message = "does view with id \"cinema_room_places\" placed in activity?"
-
         activityController.`launch this activity and execute` {
-            assertNotNull(message, find<GridLayout>("cinema_room_places"))
+            `cinema room places`
         }
     }
 
@@ -48,7 +51,7 @@ class Stage1UnitTest : AbstractUnitTest<MainActivity>(MainActivity::class.java) 
         val message = "does view with id \"cinema_room_places\" contains a proper count of columns?"
 
         activityController.`launch this activity and execute` {
-            assertEquals(message, 8, find<GridLayout>("cinema_room_places").columnCount)
+            assertEquals(message, 8, `cinema room places`.columnCount)
         }
     }
 
@@ -57,7 +60,7 @@ class Stage1UnitTest : AbstractUnitTest<MainActivity>(MainActivity::class.java) 
         val message = "does view with id \"cinema_room_places\" contains a proper count of rows?"
 
         activityController.`launch this activity and execute` {
-            assertEquals(message, 7, find<GridLayout>("cinema_room_places").rowCount)
+            assertEquals(message, 7, `cinema room places`.rowCount)
         }
     }
 
@@ -66,21 +69,16 @@ class Stage1UnitTest : AbstractUnitTest<MainActivity>(MainActivity::class.java) 
         val message = "does view with id \"cinema_room_places\" contains a proper seats describe?"
 
         activityController.`launch this activity and execute` {
-            find<GridLayout>("cinema_room_places").also { gridLayout ->
+            `cinema room places`.also { gridLayout ->
                 assertEquals(56, gridLayout.size)
             }.forEachIndexed { index, seat ->
                 val seatRow = index / 8 + 1
                 val seatColumn = index % 8 + 1
 
-                // Note: even seat is can be already a view, it shouldn't be casted to textView
-                // because someone might try to wrap a TextView with other container such
-                // as FrameLayout or CardLayout
-                // In this case the different from `(seat as TextView).text` solution will not
-                // being passed.
+                // Note: find is necessary because actual TextView may be wrapped inside seat
                 val seatText = seat.find<TextView>("cinema_room_place_item_text").text
                 assertEquals(message, "${seatRow}.${seatColumn}", seatText)
             }
         }
     }
-
 }

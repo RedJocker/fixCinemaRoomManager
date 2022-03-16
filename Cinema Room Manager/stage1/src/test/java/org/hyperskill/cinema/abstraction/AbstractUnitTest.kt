@@ -20,9 +20,11 @@ import java.util.regex.Matcher
 import java.util.regex.Pattern
 import kotlin.math.abs
 
+// Version 03.2022
 abstract class AbstractUnitTest<T : Activity>(
     activityClass: Class<T>,
-) : ActivityUnitTest<T>(activityClass), ViewUnitTest {
+) : ActivityUnitTest<T>(activityClass) {
+
 
     protected fun `most profitable movie`() = Intent().apply {
         putExtra("DURATION", 90)
@@ -44,14 +46,6 @@ abstract class AbstractUnitTest<T : Activity>(
 
     protected fun MainActivity.`grid layout child`(index: Int): View {
         return find<GridLayout>("cinema_room_places").getChildAt(index)
-    }
-
-    protected fun MainActivity.`price text view`() : TextView {
-        return find("cinema_room_ticket_price")
-    }
-
-    protected fun MainActivity.`screen text view`() : TextView {
-        return find("cinema_room_screen_text")
     }
 
     protected fun MainActivity.`grid layout child`(index: (GridLayout) -> Int): View {
@@ -105,7 +99,7 @@ abstract class AbstractUnitTest<T : Activity>(
     }
 
     protected fun AlertDialog.`shouldn't be same as`(assertMessage: String, dialog: AlertDialog) {
-        Assert.assertEquals(assertMessage, dialog, this)
+        Assert.assertNotEquals(assertMessage, dialog, this)
     }
 
     protected fun AlertDialog.`shouldn't be same as`(
@@ -116,23 +110,24 @@ abstract class AbstractUnitTest<T : Activity>(
     }
 
     protected infix fun TextView.`text should be`(string: String) {
-        Assert.assertEquals("Expected a $string text in $this", string, text)
+        val actual = text.toString().lowercase()
+        val expected = string.lowercase()
+        Assert.assertEquals("Expected a $string text in $this", expected, actual)
     }
 
     protected fun TextView.`text should`(assertMessage: String, action: (String) -> Boolean) {
+        println(text.toString())
         Assert.assertTrue(assertMessage, action(text.toString()))
     }
 
     protected fun TextView.`text should contain double`(assertMessage: String, value: Double, `with delta`: Double) {
+        println("actual: $text |expected: $value")
         Assert.assertTrue(assertMessage, text.toString().`is contain double`(value, `with delta`))
     }
 
     protected fun TextView.`text should be`(errorMessage: String, expected: String) {
+        println(text.toString())
         Assert.assertEquals(errorMessage, expected, text)
-    }
-
-    protected fun TextView.`text should be`(error: String, action: (String) -> Boolean) {
-        Assert.assertTrue(error, action(text.toString()))
     }
 
     protected infix fun View.`visibility should be`(visibility: Int) {
@@ -140,18 +135,21 @@ abstract class AbstractUnitTest<T : Activity>(
     }
 
     protected fun String.`is contain double`(expected: Double, `with delta`: Double): Boolean {
-        val matcher: Matcher = Pattern.compile("([0-9.]*[0-9]+)").matcher(this)
+
+        val matcher: Matcher = Pattern.compile("[0-9]+(\\.[0-9]+)?").matcher(this)
         while (matcher.find()) {
-            val scanned = matcher.group(1)?.toDoubleOrNull() ?: continue
+            val scanned = matcher.group().toDoubleOrNull() ?: continue
+            println("actual: $this |expected: $expected| diff: ${abs(scanned - expected)}")
             if (abs(expected - scanned) < `with delta`) return true
         }
         return false
     }
 
     protected fun String.`is contain integer`(expected: Int): Boolean {
-        val matcher: Matcher = Pattern.compile("([0-9]+)").matcher(this)
+        println("actual: $this |expected: $expected")
+        val matcher: Matcher = Pattern.compile("[0-9]+").matcher(this)
         while (matcher.find()) {
-            val scanned = matcher.group(1)?.toIntOrNull() ?: continue
+            val scanned = matcher.group().toIntOrNull() ?: continue
             if (expected == scanned) return true
         }
         return false
