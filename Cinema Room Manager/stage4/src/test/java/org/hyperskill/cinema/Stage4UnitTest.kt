@@ -9,9 +9,10 @@ import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 import java.util.*
 
-// Version 21.11.2021
+// Version 03.2022
 @RunWith(RobolectricTestRunner::class)
 class Stage4UnitTest : AbstractUnitTest<MainActivity>(MainActivity::class.java) {
+
 
     @Test
     fun `test should check dialog's title text`() {
@@ -29,11 +30,11 @@ class Stage4UnitTest : AbstractUnitTest<MainActivity>(MainActivity::class.java) 
 
         activityController.`launch this activity and execute`(arguments = `most profitable movie`()) {
             `grid layout child`(index = 5).`perform click`()
-            `in alert dialog`().`for dialog message`().`text should be`(message) { text ->
+            `in alert dialog`().`for dialog message`().`text should`(message) { text ->
                 val startsWith = text.startsWith("Your ticket price is ")
                 val endsWith = text.endsWith("$")
-                val double = text.replace("$", "").`is contain double`(expected = 24.11, `with delta` = 0.1)
-                return@`text should be` startsWith and endsWith and double
+                val double = text.`is contain double`(expected = 24.11, `with delta` = 0.1)
+                return@`text should` startsWith and endsWith and double
             }
         }
     }
@@ -126,9 +127,8 @@ class Stage4UnitTest : AbstractUnitTest<MainActivity>(MainActivity::class.java) 
                     Alert dialog should be displayed again if the previous purchase was canceled (dialogs should be different)
                     First dialog: $firstAlertDialog
                     Second dialog: $secondAlertDialog
-                """.trimMargin()
+                """.trimIndent()
             }
         }
     }
-
 }
