@@ -7,16 +7,15 @@ import org.junit.Assert.*
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
-import java.util.*
 
-// Version 03.2022
+//Version 03.2022
 @RunWith(RobolectricTestRunner::class)
 class Stage4UnitTest : AbstractUnitTest<MainActivity>(MainActivity::class.java) {
 
 
     @Test
     fun `test should check dialog's title text`() {
-        val message = "make sure you pass a row number and a place number properly into the dialog"
+        val message = "Make sure you properly pass row number and place number into dialog."
 
         activityController.`launch this activity and execute`(arguments = `most profitable movie`()) {
             `grid layout child`(index = 5).`perform click`()
@@ -26,22 +25,23 @@ class Stage4UnitTest : AbstractUnitTest<MainActivity>(MainActivity::class.java) 
 
     @Test
     fun `test should check dialog's message text`() {
-        val message = "make sure you pass a ticket price properly into the dialog"
+        val message = "Make sure you properly pass ticket price into dialog."
 
         activityController.`launch this activity and execute`(arguments = `most profitable movie`()) {
             `grid layout child`(index = 5).`perform click`()
-            `in alert dialog`().`for dialog message`().`text should`(message) { text ->
+            `in alert dialog`().`for dialog message`().`text should`() { text ->
                 val startsWith = text.startsWith("Your ticket price is ")
                 val endsWith = text.endsWith("$")
                 val double = text.`is contain double`(expected = 24.11, `with delta` = 0.1)
-                return@`text should` startsWith and endsWith and double
+                val expected = "Your ticket price is 24.11$"
+                assertTrue("$message expected:<$expected> but was:<$text>", startsWith and endsWith and double)
             }
         }
     }
 
     @Test
     fun `test should check booked place color via dialog`() {
-        val message = "make sure you change a purchased cinema place indicator via cardBackgroundColor"
+        val message = "Make sure you change purchased cinema place indicator via cardBackgroundColor."
 
         activityController.`launch this activity and execute`(arguments = `most profitable movie`()) {
             `grid layout child`(index = 5).`perform click`()
@@ -52,7 +52,7 @@ class Stage4UnitTest : AbstractUnitTest<MainActivity>(MainActivity::class.java) 
 
     @Test
     fun `test should check booked place availability via dialog`() {
-        val message = "the purchased place shouldn't show an alert dialog on click"
+        val message = "A place that was already purchased shouldn't show alert dialog on click."
 
         activityController.`launch this activity and execute`(arguments = `most profitable movie`()) {
             `grid layout child`(index = 5).`perform click`()
@@ -104,11 +104,7 @@ class Stage4UnitTest : AbstractUnitTest<MainActivity>(MainActivity::class.java) 
             `in alert dialog`().`for negative button`().`perform click`()
 
             `grid layout child`(index = 5).indicator().`color shouldn't be`(Color.DKGRAY) {
-                """
-                    Make sure you do nothing if the purchase was canceled (Indicator color and Indication color should not be equal)
-                    Indicator color: ${it.cardBackgroundColor.defaultColor}
-                    Indication color: ${Color.DKGRAY}
-                """.trimIndent()
+                "You should do nothing if the purchase was canceled (Indicator color and Indication color should not be equal)"
             }
         }
     }
@@ -123,11 +119,7 @@ class Stage4UnitTest : AbstractUnitTest<MainActivity>(MainActivity::class.java) 
 
             `grid layout child`(index = 5).`perform click`()
             `in alert dialog`().`shouldn't be same as`(firstAlertDialog) { secondAlertDialog ->
-                """
-                    Alert dialog should be displayed again if the previous purchase was canceled (dialogs should be different)
-                    First dialog: $firstAlertDialog
-                    Second dialog: $secondAlertDialog
-                """.trimIndent()
+                "Alert dialog should be displayed again if the previous purchase was canceled (dialogs should be different)"
             }
         }
     }
