@@ -25,7 +25,10 @@ object TicketPriceCalculator {
         return ticketPrices[row - 1]
     }
 
-    fun totalCinemaIncome(): Double = ticketPrices.sum() * COLS
+    fun totalCinemaIncome(): Double {
+//        return 0.0  // produces "Have you calculated total income properly? expected:<Total cinema income: 964.29$> but was:<Total cinema income: 0.00$>"
+        return ticketPrices.sum() * COLS
+    }
 
 
     private fun calculateBaseTicketPrice(rating : Double, duration: Int, availableSeats: Int) : Double {

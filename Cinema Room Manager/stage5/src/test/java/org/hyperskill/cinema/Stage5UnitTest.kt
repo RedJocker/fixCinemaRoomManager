@@ -6,11 +6,12 @@ import android.widget.TextView
 import androidx.core.view.forEachIndexed
 import org.hyperskill.cinema.abstraction.AbstractUnitTest
 import org.hyperskill.cinema.abstraction.find
+import org.junit.Assert.assertTrue
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 
-// Version 03.2022
+//Version 03.2022
 @RunWith(RobolectricTestRunner::class)
 class Stage5UnitTest : AbstractUnitTest<MainActivity>(MainActivity::class.java) {
 
@@ -33,147 +34,185 @@ class Stage5UnitTest : AbstractUnitTest<MainActivity>(MainActivity::class.java) 
 
     @Test
     fun `test should check total cinema income value for most profitable movie`() {
-        val message = "have you calculated total income properly?"
+        val message = "Have you calculated total income properly?"
 
         activityController.`launch this activity and execute`(arguments = `most profitable movie`()) {
-            `for total income view`.`text should`(assertMessage = message) { text ->
+            `for total income view`.`text should` { text ->
                 val startsWith = text.startsWith("Total cinema income: ")
                 val endsWith = text.endsWith("\$")
                 val containsDouble = text.`is contain double`(964.29, 0.1)
-
-                return@`text should` startsWith && endsWith && containsDouble
+                val expected = "Total cinema income: 964.29$"
+                assertTrue(
+                    "$message expected:<$expected> but was:<$text>",
+                    startsWith && endsWith && containsDouble
+                )
             }
         }
     }
 
     @Test
     fun `test should check total cinema income value for default profitable movie`() {
-        val message = "have you calculated total income properly?"
+        val message = "Have you calculated total income properly?"
 
         activityController.`launch this activity and execute`(arguments = `default profitable movie`()) {
-            `for total income view`.`text should`(assertMessage = message) { text ->
+            `for total income view`.`text should`() { text ->
                 val startsWith = text.startsWith("Total cinema income: ")
                 val endsWith = text.endsWith("\$")
                 val containsDouble = text.`is contain double`(850.50, 0.1)
-                return@`text should` startsWith && endsWith && containsDouble
+                val expected = "Total cinema income: 850.50$"
+                assertTrue(
+                    "$message expected:<$expected> but was:<$text>",
+                    startsWith && endsWith && containsDouble
+                )
             }
         }
     }
 
     @Test
     fun `test should check initial current cinema income value for most profitable movie`() {
-        val message = "have you calculated current income properly?"
+        val message = "Have you calculated current income properly?"
 
         activityController.`launch this activity and execute`(arguments = `most profitable movie`()) {
-            `for current income view`.`text should`(assertMessage = message) { text ->
+            `for current income view`.`text should`() { text ->
                 val startsWith = text.startsWith("Current cinema income: ", ignoreCase = true)
                 val endsWith = text.endsWith("\$")
                 val containsDouble = text.`is contain double`(0.0, 0.1)
-                return@`text should` startsWith && endsWith && containsDouble
+                val expected = "Current cinema income: 0.00$"
+                assertTrue(
+                    "$message expected:<$expected> but was:<$text>",
+                    startsWith && endsWith && containsDouble
+                )
             }
         }
     }
 
     @Test
     fun `test should check initial current cinema income value for default profitable movie`() {
-        val message = "have you calculated current income properly?"
+        val message = "Have you calculated current income properly?"
 
         activityController.`launch this activity and execute`(arguments = `default profitable movie`()) {
-            `for current income view`.`text should`(assertMessage =  message) { text ->
+            `for current income view`.`text should`() { text ->
                 val startsWith = text.startsWith("Current cinema income: ", ignoreCase = true)
                 val endsWith = text.endsWith("\$")
                 val containsDouble = text.`is contain double`(0.0, 0.1)
-                return@`text should` startsWith && endsWith && containsDouble
+                val expected = "Current cinema income: 0.00$"
+                assertTrue(
+                    "$message expected:<$expected> but was:<$text>",
+                    startsWith && endsWith && containsDouble
+                )
             }
         }
     }
 
     @Test
     fun `test should check current cinema income value for most profitable movie`() {
-        val message = "have you calculated current income properly?"
+        val message = "Have you calculated current income properly?"
 
         activityController.`launch this activity and execute`(arguments = `most profitable movie`()) {
             `grid layout child`(index = 5).`perform click`()
             `in alert dialog`().`for positive button`().`perform click`()
-            `for current income view`.`text should`(assertMessage = message) { text ->
+            `for current income view`.`text should`() { text ->
                 val startsWith = text.startsWith("Current cinema income: ", ignoreCase = true)
                 val endsWith = text.endsWith("\$")
                 val containsDouble = text.`is contain double`(24.11, 0.1)
-                return@`text should` startsWith && endsWith && containsDouble
+                val expected = "Current cinema income: 24.11$"
+                assertTrue(
+                    "$message expected:<$expected> but was:<$text>",
+                    startsWith && endsWith && containsDouble
+                )
             }
         }
     }
 
     @Test
     fun `test should check current cinema income value for default profitable movie`() {
-        val message = "have you calculated current income properly?"
+        val message = "Have you calculated current income properly?"
 
         activityController.`launch this activity and execute`(arguments = `default profitable movie`()) {
             `grid layout child`(index = 5).`perform click`()
             `in alert dialog`().`for positive button`().`perform click`()
-            `for current income view`.`text should`(assertMessage = message) { text ->
+            `for current income view`.`text should`() { text ->
                 val startsWith = text.startsWith("Current cinema income: ", ignoreCase = true)
                 val endsWith = text.endsWith("\$")
                 val containsDouble = text.`is contain double`(21.26, 0.1)
-                return@`text should` startsWith && endsWith && containsDouble
+                val expected = "Current cinema income: 21.26$"
+                assertTrue(
+                    "$message expected:<$expected> but was:<$text>",
+                    startsWith && endsWith && containsDouble
+                )
             }
         }
     }
 
     @Test
     fun `test should check initial available seats value`() {
-        val message = "have you really counted available seats?"
+        val message = "Have you really counted available seats?"
 
         activityController.`launch this activity and execute`(arguments = `most profitable movie`()) {
-            `for available seats view`.`text should`(assertMessage = message) { text ->
+            `for available seats view`.`text should`() { text ->
                 val startsWith = text.startsWith("Available seats: ")
                 val containsInteger = text.`is contain integer`(56)
-                return@`text should` startsWith && containsInteger
+                val expected = "Available seats: 56"
+                assertTrue(
+                    "$message expected:<$expected> but was:<$text>",
+                    startsWith && containsInteger
+                )
             }
         }
     }
 
     @Test
     fun `test should check available seats value`() {
-        val message = "have you really counted available seats?"
+        val message = "Have you really counted available seats?"
 
         activityController.`launch this activity and execute`(arguments = `most profitable movie`()) {
             `grid layout child`(index = 5).`perform click`()
             `in alert dialog`().`for positive button`().`perform click`()
-            `for available seats view`.`text should`(assertMessage = message) { text ->
-                val startsWithExpectedText = text.startsWith("Available seats: ", ignoreCase = true)
-                val containsExpectedInteger = text.`is contain integer`(55)
-                println(text)
+            `for available seats view`.`text should`() { text ->
+                val startsWith = text.startsWith("Available seats: ", ignoreCase = true)
+                val containsInteger = text.`is contain integer`(55)
 
-                return@`text should` startsWithExpectedText && containsExpectedInteger
+                val expected = "Available seats: 55"
+                assertTrue(
+                    "$message expected:<$expected> but was:<$text>",
+                    startsWith && containsInteger
+                )
             }
         }
     }
 
     @Test
     fun `test should check initial occupied seats value`() {
-        val message = "have you really counted occupied seats?"
+        val message = "Have you really counted occupied seats?"
 
         activityController.`launch this activity and execute`(arguments = `most profitable movie`()) {
-            `for occupied seats view`.`text should`(assertMessage = message) { text ->
+            `for occupied seats view`.`text should`() { text ->
                 val startsWith = text.startsWith("Occupied seats: ", ignoreCase = true)
                 val containsInteger = text.`is contain integer`(0)
-                return@`text should` startsWith && containsInteger
+                val expected = "Occupied seats: 0"
+                assertTrue(
+                    "$message expected:<$expected> but was:<$text>",
+                    startsWith && containsInteger
+                )
             }
         }
     }
 
     @Test
     fun `test should check occupied seats value`() {
-        val message = "have you really counted occupied seats?"
+        val message = "Have you really counted occupied seats?"
 
         activityController.`launch this activity and execute`(arguments = `most profitable movie`()) {
             `grid layout child`(index = 5).`perform click`()
             `in alert dialog`().`for positive button`().`perform click`()
-            `for occupied seats view`.`text should`(assertMessage = message) { text ->
+            `for occupied seats view`.`text should`() { text ->
                 val startsWith = text.startsWith("Occupied seats: ", ignoreCase = true)
                 val containsInteger = text.`is contain integer`(1)
-                return@`text should` startsWith && containsInteger
+                val expected = "Occupied seats: 1"
+                assertTrue(
+                    "$message expected:<$expected> but was:<$text>",
+                    startsWith && containsInteger
+                )
             }
         }
     }
@@ -196,21 +235,33 @@ class Stage5UnitTest : AbstractUnitTest<MainActivity>(MainActivity::class.java) 
                     currentAlertDialog.`should be same as`(lastAlertDialog)
                 }
 
-                `for occupied seats view`.`text should`(assertMessage = message) { text ->
+                `for occupied seats view`.`text should`() { text ->
                     val startsWith = text.startsWith("Occupied seats: ", ignoreCase = true)
                     val containsInteger = text.`is contain integer`(1)
-                    return@`text should` startsWith && containsInteger
+                    val expected = "Occupied seats: 1"
+                    assertTrue(
+                        "$message expected:<$expected> but was:<$text>",
+                        startsWith && containsInteger
+                    )
                 }
-                `for available seats view`.`text should`(assertMessage = message) { text ->
+                `for available seats view`.`text should`() { text ->
                     val startsWith = text.startsWith("Available seats: ", ignoreCase = true)
                     val containsInteger = text.`is contain integer`(55)
-                    return@`text should` startsWith && containsInteger
+                    val expected = "Available seats: 55"
+                    assertTrue(
+                        "$message expected:<$expected> but was:<$text>",
+                        startsWith && containsInteger
+                    )
                 }
-                `for current income view`.`text should`(assertMessage = message) { text ->
+                `for current income view`.`text should`() { text ->
                     val startsWith = text.startsWith("Current cinema income: ", ignoreCase = true)
                     val endsWith = text.endsWith("\$")
                     val containsDouble = text.`is contain double`(21.81, 0.1)
-                    return@`text should` startsWith && endsWith && containsDouble
+                    val expected = "Current cinema income: 21.81$"
+                    assertTrue(
+                        "$message expected:<$expected> but was:<$text>",
+                        startsWith && endsWith && containsDouble
+                    )
                 }
             }
         }
@@ -219,7 +270,7 @@ class Stage5UnitTest : AbstractUnitTest<MainActivity>(MainActivity::class.java) 
     @Test
     fun `when all seats clicked final state should be displayed`() {
         val clickFailedToOpenNewDialog = "Failed to open new dialog after click on available seat"
-        val occupiedSeatCounterError = "Occupied Seats displayed wrong number"
+        val occupiedSeatsCounterError = "Occupied Seats displayed wrong number"
         val availableSeatsCounterError = "Available Seats displayed wrong number"
         val totalIncomeCounterError = "Total Income displayed wrong number"
 
@@ -245,25 +296,41 @@ class Stage5UnitTest : AbstractUnitTest<MainActivity>(MainActivity::class.java) 
                 lastAlertDialog = currentAlertDialog
                 currentAlertDialog.`for positive button`().`perform click`()
 
-                `for occupied seats view`.`text should`(assertMessage = occupiedSeatCounterError) { expectedText ->
-                    val startsWith = expectedText.startsWith("Occupied seats: ", ignoreCase = true)
-                    val containsInteger = expectedText.`is contain integer`(1 + seatIndex)
-                    return@`text should` startsWith && containsInteger
+                `for occupied seats view`.`text should`() { text ->
+                    val startsWith = text.startsWith("Occupied seats: ", ignoreCase = true)
+                    val expectedSeatCount = 1 + seatIndex
+                    val containsInteger = text.`is contain integer`(expectedSeatCount)
+                    val expected = "Occupied seats: $expectedSeatCount"
+
+                    assertTrue(
+                        "$occupiedSeatsCounterError expected:<$expected> but was:<$text>",
+                        startsWith && containsInteger
+                    )
                 }
 
-                `for available seats view`.`text should`(assertMessage = availableSeatsCounterError) { expectedText ->
-                    val startsWith = expectedText.startsWith("Available seats: ", ignoreCase = true)
-                    val containsInteger = expectedText.`is contain integer`(56  - (seatIndex + 1))
-                    return@`text should` startsWith && containsInteger
+                `for available seats view`.`text should`() { text ->
+                    val startsWith = text.startsWith("Available seats: ", ignoreCase = true)
+                    val expectedSeatCount = 56 - (seatIndex + 1)
+                    val containsInteger = text.`is contain integer`(expectedSeatCount)
+                    val expected = "Available seats: $expectedSeatCount"
+
+                    assertTrue(
+                        "$availableSeatsCounterError expected:<$expected> but was:<$text>",
+                        startsWith && containsInteger
+                    )
                 }
 
                 accumulatedIncome += expectedRowValues[seatIndex / 8]
 
-                `for current income view`.`text should`(assertMessage = totalIncomeCounterError) { expectedText ->
-                    val startsWith = expectedText.startsWith("Current cinema income: ", ignoreCase = true)
-                    val endsWith = expectedText.endsWith("\$")
-                    val containsDouble = expectedText.`is contain double`(accumulatedIncome, 0.1)
-                    return@`text should` startsWith && endsWith && containsDouble
+                `for current income view`.`text should`() { text ->
+                    val startsWith = text.startsWith("Current cinema income: ", ignoreCase = true)
+                    val endsWith = text.endsWith("\$")
+                    val containsDouble = text.`is contain double`(accumulatedIncome, 0.1)
+                    val expected = "Current cinema income: %.2f$".format(accumulatedIncome)
+                    assertTrue(
+                        "$totalIncomeCounterError expected:<$expected> but was:<$text>",
+                        startsWith && endsWith && containsDouble
+                    )
                 }
             }
         }

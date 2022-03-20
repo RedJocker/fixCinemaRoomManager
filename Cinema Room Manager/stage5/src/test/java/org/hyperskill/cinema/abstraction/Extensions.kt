@@ -6,6 +6,7 @@ import android.view.View
 import org.hyperskill.cinema.MainActivity
 import org.junit.Assert
 
+//Version 03.2022
 
     fun Context.identifier(id: String, `package`: String = packageName): Int {
         return resources.getIdentifier(id, "id", `package`)
