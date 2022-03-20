@@ -4,11 +4,13 @@ import android.content.Intent
 import android.widget.TextView
 import org.hyperskill.cinema.abstraction.AbstractUnitTest
 import org.hyperskill.cinema.abstraction.find
+import org.junit.Assert.assertTrue
+import org.junit.Assert.fail
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 
-// Version 03.2022
+//Version 03.2022
 @RunWith(RobolectricTestRunner::class)
 class Stage2UnitTest : AbstractUnitTest<MainActivity>(MainActivity::class.java) {
 
@@ -18,13 +20,6 @@ class Stage2UnitTest : AbstractUnitTest<MainActivity>(MainActivity::class.java) 
 
     private val `price text view` : TextView by lazy {
         activity.find("cinema_room_ticket_price")
-    }
-
-    @Test
-    fun `test should check ticket price view exists`() {
-        activityController.`launch this activity and execute` {
-            `price text view`
-        }
     }
 
     @Test
@@ -57,14 +52,13 @@ class Stage2UnitTest : AbstractUnitTest<MainActivity>(MainActivity::class.java) 
     @Test
     fun `test should check ticket price view contains two digits after dot`() {
 
-
         activityController.`launch this activity and execute`(arguments = `custom profitable movie`()) {
             val actualText = `price text view`.text
             val message = "Make sure you have correctly formatted the ticket price message. The price should contain two numbers after the dot.\n" +
-                    "Expected: 'Estimated ticket price: [priceWithTwoDecimals]$' Found: '$actualText'"
+                    "expected:<Estimated ticket price: [priceWithTwoDecimals]$> but was:<$actualText>"
 
-            `price text view`.`text should`(assertMessage = message) { text ->
-                text.matches("(?i)^Estimated ticket price: ([1-9][0-9]*|0)(\\.[0-9][0-9])?\\$$".toRegex())
+            `price text view`.`text should`() { text ->
+                assertTrue(message, text.matches("(?i)^Estimated ticket price: ([1-9][0-9]*|0)(\\.[0-9][0-9])?\\$$".toRegex()))
             }
         }
     }
