@@ -20,7 +20,7 @@ import java.util.regex.Matcher
 import java.util.regex.Pattern
 import kotlin.math.abs
 
-// Version 03.2022
+//Version 03.2022
 abstract class AbstractUnitTest<T : Activity>(
     activityClass: Class<T>,
 ) : ActivityUnitTest<T>(activityClass) {
@@ -112,12 +112,11 @@ abstract class AbstractUnitTest<T : Activity>(
     protected infix fun TextView.`text should be`(string: String) {
         val actual = text.toString().lowercase()
         val expected = string.lowercase()
-        Assert.assertEquals("Expected a $string text in $this", expected, actual)
+        Assert.assertEquals("Expected text '$string' in ${this.javaClass.simpleName}", expected, actual)
     }
 
-    protected fun TextView.`text should`(assertMessage: String, action: (String) -> Boolean) {
-        println(text.toString())
-        Assert.assertTrue(assertMessage, action(text.toString()))
+    protected fun TextView.`text should`(action: (String) -> Unit) {
+        action(text.toString())
     }
 
     protected fun TextView.`text should contain double`(assertMessage: String, value: Double, `with delta`: Double) {
@@ -131,7 +130,7 @@ abstract class AbstractUnitTest<T : Activity>(
     }
 
     protected infix fun View.`visibility should be`(visibility: Int) {
-        Assert.assertEquals(visibility, this.visibility)
+        Assert.assertEquals("Expected visibility to be $visibility", visibility, this.visibility)
     }
 
     protected fun String.`is contain double`(expected: Double, `with delta`: Double): Boolean {
