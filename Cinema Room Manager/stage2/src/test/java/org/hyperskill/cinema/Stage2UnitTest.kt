@@ -5,12 +5,11 @@ import android.widget.TextView
 import org.hyperskill.cinema.abstraction.AbstractUnitTest
 import org.hyperskill.cinema.abstraction.find
 import org.junit.Assert.assertTrue
-import org.junit.Assert.fail
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 
-//Version 03.2022
+//Version 04.2022 B
 @RunWith(RobolectricTestRunner::class)
 class Stage2UnitTest : AbstractUnitTest<MainActivity>(MainActivity::class.java) {
 
@@ -24,7 +23,7 @@ class Stage2UnitTest : AbstractUnitTest<MainActivity>(MainActivity::class.java) 
 
     @Test
     fun `test should check ticket price view with default arguments`() {
-        val message = "Are default DURATION and RATING properties being used"
+        val message = "Are default DURATION and RATING properties being used?"
 
         activityController.`launch this activity and execute` {
             `price text view`.`text should contain double`(message, 14.18, DOUBLE_ASSERT_DELTA)
