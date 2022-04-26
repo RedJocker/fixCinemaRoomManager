@@ -2,17 +2,18 @@ package org.hyperskill.cinema
 
 import android.widget.GridLayout
 import android.widget.TextView
-import androidx.core.view.forEachIndexed
+import androidx.core.view.get
 import androidx.core.view.iterator
 import androidx.core.view.size
 import org.hyperskill.cinema.abstraction.AbstractUnitTest
 import org.hyperskill.cinema.abstraction.find
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 
-//Version 03.2022
+//Version 04.2022 B
 @RunWith(RobolectricTestRunner::class)
 class Stage1UnitTest : AbstractUnitTest<MainActivity>(MainActivity::class.java) {
 
@@ -60,13 +61,49 @@ class Stage1UnitTest : AbstractUnitTest<MainActivity>(MainActivity::class.java) 
             `cinema room places`.also { gridLayout ->
                 assertEquals(56, gridLayout.size)
             }.iterator().asSequence().map { eitherSeatOrSeatWrapper ->
-               eitherSeatOrSeatWrapper.find<TextView>("cinema_room_place_item_text")
+                eitherSeatOrSeatWrapper.find<TextView>("cinema_room_place_item_text")
             }.forEachIndexed { index, seat ->
                 val seatRow = index / 8 + 1
                 val seatColumn = index % 8 + 1
 
                 val seatText = seat.text
                 assertEquals(message, "${seatRow}.${seatColumn}", seatText)
+            }
+        }
+    }
+
+    @Test
+    fun `columns should be displayed in order`() {
+        activityController.`launch this activity and execute` {
+            val rowSize  = `cinema room places`.rowCount
+            val colSize = `cinema room places`.columnCount
+
+            for(row in 0 until rowSize) {
+                var lastLeftPx = Int.MIN_VALUE
+                for(col in 0 until colSize) {
+                    val index = row * colSize + col
+                    val currentLeftPx = `cinema room places`[index].left
+                    assertTrue("Columns should be displayed in order with crescent column numbers", currentLeftPx > lastLeftPx)
+                    lastLeftPx = currentLeftPx
+                }
+            }
+        }
+    }
+
+    @Test
+    fun `rows should be displayed in order`() {
+        activityController.`launch this activity and execute` {
+            val rowSize  = `cinema room places`.rowCount
+            val colSize = `cinema room places`.columnCount
+
+            for(col in 0 until colSize) {
+                var lastTopPx = Int.MIN_VALUE
+                for(row in 0 until rowSize) {
+                    val index = row * colSize + col
+                    val currentTopPx = `cinema room places`[index].top
+                    assertTrue("Rows should be displayed in order with crescent row numbers", currentTopPx > lastTopPx)
+                    lastTopPx = currentTopPx
+                }
             }
         }
     }
