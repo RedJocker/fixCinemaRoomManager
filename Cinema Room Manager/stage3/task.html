@@ -1,19 +1,23 @@
 <h2>Description</h2>
 
-<p>When you choose a ticket, you look not only at a particular seat but also the cost. Let's implement the ability to check the ticket price.</p>
+<p>When you choose a ticket, it&#39;s a good idea to consider its cost. Let&#39;s implement the ability to check the ticket price!</p>
 
 <h2>Objectives</h2>
 
-<p>A seat cost can vary from 0.5 for farther rows to 1.5 for closer rows from the base ticket cost. Seats in the middle have the base ticket cost. Other values should be interpolated.</p>
+<ul>
+    <li>Show a ticket price&nbsp;on the&nbsp;<code>Toast</code>&nbsp;when you click on a seat;</li>
+    <li>The&nbsp;price is the base price weighted by its row position.&nbsp;Seats closer to the screen have a fixed maximum weight of&nbsp;<code>1.5</code>.&nbsp;The minimum weight is the target weight of <code>0.5</code>. To calculate the middle seat weights, find the weight step &mdash; the difference between the max and min weights divided by the number of rows. The weight of each particular row decreases evenly starting from the max weight to the min weight;</li>
+    <li>The seat ticket price is calculated by multiplying&nbsp;the base ticket cost by&nbsp;row weight.</li>
+</ul>
 
-<p>For example, we have 10 rows with a base ticket cost of 10. The farthest row cost is 5 per seat, and the closer row is 15 per seat. Let's interpolate [5, 15] range between 10 steps. The result is [6, 7, 8, 9, 10, 11, 12, 13, 14, 15] because our friends want to maximize the income.</p>
+<p>For example, if we have <code>10</code> rows with a base ticket cost of <code>10</code>. The difference between the max and the min weight is <code>1.0</code>. The weight step is&nbsp;<code>0.1</code>. Seat prices are as follows:</p>
 
-<p>Show a ticket price when you click on a seat in <code>Toast</code>.</p>
+<p><span class="math-tex">\[[(10 \times 1.5), (10 \times 1.4), (10 \times 1.3), (10 \times 1.2), (10 \times 1.1), (10 \times 1.0), (10 \times 0.9), (10 \times 0.8), (10 \times 0.7), (10 \times 0.6)]\]</span></p>
 
-<h2>Examples</h2>
+<p>Mind that the farthest row&#39;s actual weight can be higher than the target minimum weight, but the closest row&#39;s actual weight is always equal to the maximum weight.</p>
+
+<h2>Example</h2>
 
 <p><strong>Example 1:</strong> <em>an example of your application</em></p>
 
-<p>[HINT]The screenshot has been taken in the dark mode. If you prefer a light system mode, your application can<em> </em>use another color scheme.[/HINT]</p>
-
-<p><img alt="" height="452" src="https://ucarecdn.com/8007e418-eb82-4ad6-99f0-b5a6a26c8620/" width="214"></p>
+<p><img alt="" height="452" src="https://ucarecdn.com/8007e418-eb82-4ad6-99f0-b5a6a26c8620/" width="214" /></p>
