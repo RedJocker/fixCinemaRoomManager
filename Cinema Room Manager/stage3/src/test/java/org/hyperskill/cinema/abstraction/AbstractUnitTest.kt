@@ -20,7 +20,7 @@ import java.util.regex.Matcher
 import java.util.regex.Pattern
 import kotlin.math.abs
 
-//Version 03.2022
+//Version 04.2022 B
 abstract class AbstractUnitTest<T : Activity>(
     activityClass: Class<T>,
 ) : ActivityUnitTest<T>(activityClass) {
@@ -41,8 +41,15 @@ abstract class AbstractUnitTest<T : Activity>(
         crossinline action: A.() -> Unit
     ): ActivityController<A> {
         get().intent = arguments
-        return setup().also { it.get().apply(action) }
+        return try {
+            setup().also { it.get().apply(action) }
+        } catch (ex: Exception) {
+            throw AssertionError(
+                "Exception, test failed with $ex\n${ex.stackTraceToString()}"
+            )
+        }
     }
+
 
     protected fun MainActivity.`grid layout child`(index: Int): View {
         return find<GridLayout>("cinema_room_places").getChildAt(index)
