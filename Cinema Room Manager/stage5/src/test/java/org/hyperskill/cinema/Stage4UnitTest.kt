@@ -34,7 +34,7 @@ class Stage4UnitTest : AbstractUnitTest<MainActivity>(MainActivity::class.java) 
                 val endsWith = text.endsWith("$")
                 val double = text.`is contain double`(expected = 24.11, `with delta` = 0.1)
                 val expected = "Your ticket price is 24.11$"
-                assertTrue("$message expected:<$expected>, but was:<$text>", startsWith and endsWith and double)
+                assertTrue("$message Expected:<$expected>, Found:<$text>", startsWith and endsWith and double)
             }
         }
     }

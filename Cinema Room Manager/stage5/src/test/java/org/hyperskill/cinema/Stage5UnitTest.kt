@@ -42,8 +42,9 @@ class Stage5UnitTest : AbstractUnitTest<MainActivity>(MainActivity::class.java) 
                 val endsWith = text.endsWith("\$")
                 val containsDouble = text.`is contain double`(964.29, 0.1)
                 val expected = "Total cinema income: 964.29$"
+
                 assertTrue(
-                    "$message expected:<$expected>, but was:<$text>",
+                    "$message Expected:<$expected>, Found:<$text>",
                     startsWith && endsWith && containsDouble
                 )
             }
@@ -61,7 +62,7 @@ class Stage5UnitTest : AbstractUnitTest<MainActivity>(MainActivity::class.java) 
                 val containsDouble = text.`is contain double`(850.50, 0.1)
                 val expected = "Total cinema income: 850.50$"
                 assertTrue(
-                    "$message expected:<$expected>, but was:<$text>",
+                    "$message Expected:<$expected>, Found:<$text>",
                     startsWith && endsWith && containsDouble
                 )
             }
@@ -79,7 +80,7 @@ class Stage5UnitTest : AbstractUnitTest<MainActivity>(MainActivity::class.java) 
                 val containsDouble = text.`is contain double`(0.0, 0.1)
                 val expected = "Current cinema income: 0.00$"
                 assertTrue(
-                    "$message expected:<$expected>, but was:<$text>",
+                    "$message Expected:<$expected>, Found:<$text>",
                     startsWith && endsWith && containsDouble
                 )
             }
@@ -97,7 +98,7 @@ class Stage5UnitTest : AbstractUnitTest<MainActivity>(MainActivity::class.java) 
                 val containsDouble = text.`is contain double`(0.0, 0.1)
                 val expected = "Current cinema income: 0.00$"
                 assertTrue(
-                    "$message expected:<$expected>, but was:<$text>",
+                    "$message Expected:<$expected>, Found:<$text>",
                     startsWith && endsWith && containsDouble
                 )
             }
@@ -117,7 +118,7 @@ class Stage5UnitTest : AbstractUnitTest<MainActivity>(MainActivity::class.java) 
                 val containsDouble = text.`is contain double`(24.11, 0.1)
                 val expected = "Current cinema income: 24.11$"
                 assertTrue(
-                    "$message expected:<$expected>, but was:<$text>",
+                    "$message Expected:<$expected>, Found:<$text>",
                     startsWith && endsWith && containsDouble
                 )
             }
@@ -137,7 +138,7 @@ class Stage5UnitTest : AbstractUnitTest<MainActivity>(MainActivity::class.java) 
                 val containsDouble = text.`is contain double`(21.26, 0.1)
                 val expected = "Current cinema income: 21.26$"
                 assertTrue(
-                    "$message expected:<$expected>, but was:<$text>",
+                    "$message Expected:<$expected>, Found:<$text>",
                     startsWith && endsWith && containsDouble
                 )
             }
@@ -154,7 +155,7 @@ class Stage5UnitTest : AbstractUnitTest<MainActivity>(MainActivity::class.java) 
                 val containsInteger = text.`is contain integer`(56)
                 val expected = "Available seats: 56"
                 assertTrue(
-                    "$message expected:<$expected>, but was:<$text>",
+                    "$message Expected:<$expected>, Found:<$text>",
                     startsWith && containsInteger
                 )
             }
@@ -174,7 +175,7 @@ class Stage5UnitTest : AbstractUnitTest<MainActivity>(MainActivity::class.java) 
 
                 val expected = "Available seats: 55"
                 assertTrue(
-                    "$message expected:<$expected>, but was:<$text>",
+                    "$message Expected:<$expected>, Found:<$text>",
                     startsWith && containsInteger
                 )
             }
@@ -191,7 +192,7 @@ class Stage5UnitTest : AbstractUnitTest<MainActivity>(MainActivity::class.java) 
                 val containsInteger = text.`is contain integer`(0)
                 val expected = "Occupied seats: 0"
                 assertTrue(
-                    "$message expected:<$expected>, but was:<$text>",
+                    "$message Expected:<$expected>, Found:<$text>",
                     startsWith && containsInteger
                 )
             }
@@ -210,7 +211,7 @@ class Stage5UnitTest : AbstractUnitTest<MainActivity>(MainActivity::class.java) 
                 val containsInteger = text.`is contain integer`(1)
                 val expected = "Occupied seats: 1"
                 assertTrue(
-                    "$message expected:<$expected>, but was:<$text>",
+                    "$message Expected:<$expected>, Found:<$text>",
                     startsWith && containsInteger
                 )
             }
@@ -240,7 +241,7 @@ class Stage5UnitTest : AbstractUnitTest<MainActivity>(MainActivity::class.java) 
                     val containsInteger = text.`is contain integer`(1)
                     val expected = "Occupied seats: 1"
                     assertTrue(
-                        "$message expected:<$expected>, but was:<$text>",
+                        "$message Expected:<$expected>, Found:<$text>",
                         startsWith && containsInteger
                     )
                 }
@@ -249,7 +250,7 @@ class Stage5UnitTest : AbstractUnitTest<MainActivity>(MainActivity::class.java) 
                     val containsInteger = text.`is contain integer`(55)
                     val expected = "Available seats: 55"
                     assertTrue(
-                        "$message expected:<$expected>, but was:<$text>",
+                        "$message Expected:<$expected>, Found:<$text>",
                         startsWith && containsInteger
                     )
                 }
@@ -259,7 +260,7 @@ class Stage5UnitTest : AbstractUnitTest<MainActivity>(MainActivity::class.java) 
                     val containsDouble = text.`is contain double`(21.81, 0.1)
                     val expected = "Current cinema income: 21.81$"
                     assertTrue(
-                        "$message expected:<$expected>, but was:<$text>",
+                        "$message Expected:<$expected>, Found:<$text>",
                         startsWith && endsWith && containsDouble
                     )
                 }
@@ -303,7 +304,7 @@ class Stage5UnitTest : AbstractUnitTest<MainActivity>(MainActivity::class.java) 
                     val expected = "Occupied seats: $expectedSeatCount"
 
                     assertTrue(
-                        "$occupiedSeatsCounterError expected:<$expected>, but was:<$text>",
+                        "$occupiedSeatsCounterError Expected:<$expected>, Found:<$text>",
                         startsWith && containsInteger
                     )
                 }
@@ -315,7 +316,7 @@ class Stage5UnitTest : AbstractUnitTest<MainActivity>(MainActivity::class.java) 
                     val expected = "Available seats: $expectedSeatCount"
 
                     assertTrue(
-                        "$availableSeatsCounterError expected:<$expected>, but was:<$text>",
+                        "$availableSeatsCounterError Expected:<$expected>, Found:<$text>",
                         startsWith && containsInteger
                     )
                 }
@@ -328,7 +329,7 @@ class Stage5UnitTest : AbstractUnitTest<MainActivity>(MainActivity::class.java) 
                     val containsDouble = text.`is contain double`(accumulatedIncome, 0.1)
                     val expected = "Current cinema income: %.2f$".format(accumulatedIncome)
                     assertTrue(
-                        "$totalIncomeCounterError expected:<$expected>, but was:<$text>",
+                        "$totalIncomeCounterError Expected:<$expected>, Found:<$text>",
                         startsWith && endsWith && containsDouble
                     )
                 }
