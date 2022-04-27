@@ -54,7 +54,7 @@ class Stage2UnitTest : AbstractUnitTest<MainActivity>(MainActivity::class.java) 
         activityController.`launch this activity and execute`(arguments = `custom profitable movie`()) {
             val actualText = `price text view`.text
             val message = "Make sure you have correctly formatted the ticket price message. The price should contain two numbers after the dot.\n" +
-                    "expected:<Estimated ticket price: [priceWithTwoDecimals]$>, but was:<$actualText>"
+                    "Expected:<Estimated ticket price: [priceWithTwoDecimals]$>, Found:<$actualText>"
 
             `price text view`.`text should`() { text ->
                 assertTrue(message, text.matches("(?i)^Estimated ticket price: ([1-9][0-9]*|0)(\\.[0-9][0-9])?\\$$".toRegex()))
